@@ -1,0 +1,21 @@
+nome,categoria,preco,estoque,descricao
+iPhone 15 Pro,Eletronicos,5999.99,25,Smartphone Apple com chip A17 Pro
+Samsung Galaxy S24,Eletronicos,4299.99,30,Smartphone Android premium
+MacBook Air,Eletronicos,8999.99,15,Notebook Apple com chip M3
+Dell XPS,Eletronicos,6499.99,20,Ultrabook Windows premium
+iPad Pro ,Eletronicos,7299.99,18,Tablet profissional Apple
+Surface ,Eletronicos,5799.99,22,Tablet 2-em-1 Microsoft
+AirPods ,Eletronicos,1899.99,50,Fones sem fio com cancelamento de ruido
+Sony WH-1000XM5,Eletronicos,1699.99,35,Headphone premium com noise cancelling
+Nintendo Switch OLED,Eletronicos,2299.99,40,Console portatil Nintendo
+PlayStation-5,Eletronicos,3999.99,12,Console Sony nova geracao
+Xbox Series-X,Eletronicos,3799.99,15,Console Microsoft 4K
+Apple Watch ,Eletronicos,2799.99,28,Smartwatch Apple GPS
+Samsung Watch ,Eletronicos,1999.99,32,Smartwatch Android Wear
+Canon EOS R6,Eletronicos,12999.99,8,Camera mirrorless profissional
+Sony A7 IV,Eletronicos,14999.99,6,Camera full frame Sony
+GoPro Hero 12,Eletronicos,2499.99,25,Action camera 4K
+DJI Mini 4 Pro,Eletronicos,4999.99,10,Drone compacto 4K
+Kindle Oasis,Eletronicos,1299.99,45,E-reader premium Amazon
+Echo Dot 5a Gen,Eletronicos,299.99,60,Smart speaker Alexa
+Google Nest Hub,Eletronicos,699.99,35,Display inteligente Google

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Dashboard</title>
+</head>
+<body>
+    <h1>Teste de Conexão</h1>
+    <button onclick="testarAPI()">Testar API</button>
+    <div id="resultado"></div>
+
+    <script>
+        async function testarAPI() {
+            const resultado = document.getElementById('resultado');
+            
+            try {
+                const response = await fetch('http://127.0.0.1:5000/executar-automacao', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                resultado.innerHTML = '<p style="color: green;">✓ API funcionando: ' + JSON.stringify(data) + '</p>';
+                
+            } catch (error) {
+                resultado.innerHTML = '<p style="color: red;">✗ Erro: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>

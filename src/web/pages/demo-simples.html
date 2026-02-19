@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação de Sistemas - Demonstração</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            font-weight: 400;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        .video-section {
+            background: #1a202c;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .video-section h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2d3748;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(45deg, #2d3748, #4a5568);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .video-placeholder .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .video-placeholder .text {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .video-placeholder .subtext {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .info-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .info-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .info-card h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .info-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            list-style: none;
+        }
+        
+        .features li {
+            color: #4a5568;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .tech-stack {
+            background: #edf2f7;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .tech-stack h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .tech-tag {
+            background: white;
+            color: #4a5568;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #3182ce;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .video-placeholder {
+                height: 300px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Automação de Sistemas</h1>
+            <p class="subtitle">Demonstração de automação web com cadastro automatizado de produtos</p>
+            <span class="badge">Python + Selenium + PyAutoGUI</span>
+        </div>
+        
+        <div class="video-section">
+            <h2>📹 Demonstração em Vídeo</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="icon">🎬</div>
+                    <div class="text">Vídeo da Automação</div>
+                    <div class="subtext">Grave a execução do automacao_web.py e coloque aqui</div>
+                </div>
+                <!-- Quando tiver o vídeo, substitua por:
+                <video controls width="100%">
+                    <source src="automacao-demo.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
+                -->
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon">⚡</div>
+                <h3>O que a Automação Faz</h3>
+                <p>Sistema completo que automatiza o processo de cadastro de produtos em uma aplicação web.</p>
+                <ul class="features">
+                    <li>Abre navegador automaticamente</li>
+                    <li>Faz login no sistema</li>
+                    <li>Cadastra 20 produtos do CSV</li>
+                    <li>Preenche 5 campos por produto</li>
+                    <li>Confirma cada cadastro</li>
+                    <li>Faz logout ao final</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <div class="icon">🛠️</div>
+                <h3>Tecnologias Utilizadas</h3>
+                <p>Projeto desenvolvido com tecnologias modernas de automação e web.</p>
+                <ul class="features">
+                    <li>Python para lógica principal</li>
+                    <li>PyAutoGUI para automação desktop</li>
+                    <li>HTML/CSS/JS para interface web</li>
+                    <li>CSV para dados dos produtos</li>
+                    <li>LocalStorage para persistência</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <div class="icon">📊</div>
+                <h3>Resultados</h3>
+                <p>A automação demonstra eficiência e precisão no cadastro de dados.</p>
+                <ul class="features">
+                    <li>20 produtos cadastrados automaticamente</li>
+                    <li>100% de precisão nos dados</li>
+                    <li>Tempo de execução: ~2 minutos</li>
+                    <li>Zero intervenção manual</li>
+                    <li>Relatório de execução completo</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <h3>🔧 Stack Tecnológica</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">PyAutoGUI</span>
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">LocalStorage</span>
+                <span class="tech-tag">CSV</span>
+                <span class="tech-tag">Selenium</span>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h3>🚀 Interessado em Automação?</h3>
+            <p>Este é apenas um exemplo do que é possível fazer com automação de processos.</p>
+            <a href="#" class="btn">Ver Código no GitHub</a>
+        </div>
+    </div>
+</body>
+</html>

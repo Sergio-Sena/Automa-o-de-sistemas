@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+        
+        * { 
+            box-sizing: border-box; 
+        }
+
+        html { 
+            width: 100%; 
+            height: 100%; 
+        }
+
+        body { 
+            width: 100%;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            background: #092756;
+            background: radial-gradient(ellipse at 0% 100%, rgba(104,128,138,.4) 10%, rgba(138,114,76,0) 40%), 
+                        linear-gradient(to bottom, rgba(57,173,219,.25) 0%, rgba(42,60,87,.4) 100%), 
+                        linear-gradient(135deg, #670d10 0%, #092756 100%);
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container { 
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        
+        h1 { 
+            color: #fff; 
+            text-shadow: 0 0 10px rgba(0,0,0,0.3); 
+            letter-spacing: 1px; 
+            text-align: center; 
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        input { 
+            width: 100%; 
+            margin-bottom: 15px; 
+            background: rgba(0,0,0,0.3);
+            border: none;
+            outline: none;
+            padding: 12px;
+            font-size: 14px;
+            color: #fff;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.3);
+            border-radius: 4px;
+            box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+            transition: box-shadow .5s ease;
+        }
+        
+        input:focus { 
+            box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); 
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn { 
+            display: inline-block; 
+            padding: 12px 20px; 
+            margin: 5px; 
+            font-size: 14px; 
+            font-weight: bold;
+            color: #ffffff; 
+            text-align: center;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary { 
+            background: linear-gradient(to bottom, #6eb6de, #4a77d4); 
+            border: 1px solid #3762bc; 
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); 
+        }
+
+        .btn-warning { 
+            background: linear-gradient(to bottom, #fbb450, #f89406); 
+            border: 1px solid #e67e22; 
+        }
+
+        .btn-danger { 
+            background: linear-gradient(to bottom, #ee5f5b, #bd362f); 
+            border: 1px solid #c0392b; 
+        }
+        
+        .btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .btn-block { 
+            width: 100%; 
+            display: block; 
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row input {
+            flex: 1;
+        }
+
+        .produtos-list {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .produto-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .user-info {
+            text-align: right;
+            color: #6eb6de;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Gestão</h1>
+        
+        <div class="user-info" id="user-info"></div>
+        
+        <div class="section">
+            <h2>Cadastro de Produtos</h2>
+            <form onsubmit="return cadastrarProduto(event)">
+                <input type="text" id="produto-nome" placeholder="Nome do produto" required />
+                <div class="form-row">
+                    <input type="number" id="produto-quantidade" placeholder="Quantidade" required />
+                    <input type="number" id="produto-preco" step="0.01" placeholder="Preço (R$)" required />
+                </div>
+                <button type="submit" class="btn btn-warning btn-block btn-large">Registrar Produto</button>
+            </form>
+            
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+            
+            <h3 style="color: white; margin-top: 30px;">Produtos Cadastrados:</h3>
+            <div class="produtos-list" id="produtos-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar se usuário está logado
+        const usuarioLogado = localStorage.getItem('usuarioLogado');
+        if (!usuarioLogado) {
+            alert('Acesso negado! Faça login primeiro.');
+            window.location.href = 'login.html';
+        }
+
+        // Mostrar usuário logado
+        document.getElementById('user-info').textContent = `Logado como: ${usuarioLogado}`;
+
+        // Dados em localStorage
+        let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+
+        function salvarDados() {
+            localStorage.setItem('produtos', JSON.stringify(produtos));
+        }
+
+        function cadastrarProduto(event) {
+            event.preventDefault();
+            
+            const nome = document.getElementById('produto-nome').value.trim();
+            const quantidade = parseInt(document.getElementById('produto-quantidade').value);
+            const preco = parseFloat(document.getElementById('produto-preco').value);
+            
+            if (!nome || !quantidade || !preco) {
+                alert('Preencha todos os campos!');
+                return false;
+            }
+            
+            const produto = {
+                nome: nome,
+                quantidade: quantidade,
+                preco: preco,
+                data: new Date().toLocaleString('pt-BR'),
+                usuario: usuarioLogado
+            };
+            
+            produtos.push(produto);
+            salvarDados();
+            
+            alert('Produto cadastrado com sucesso!');
+            
+            // Limpar campos
+            document.getElementById('produto-nome').value = '';
+            document.getElementById('produto-quantidade').value = '';
+            document.getElementById('produto-preco').value = '';
+            
+            atualizarListaProdutos();
+            
+            return false;
+        }
+
+        function atualizarListaProdutos() {
+            const lista = document.getElementById('produtos-list');
+            lista.innerHTML = '';
+            
+            produtos.forEach((produto, index) => {
+                const item = document.createElement('div');
+                item.className = 'produto-item';
+                item.innerHTML = `
+                    <strong>${produto.nome}</strong><br>
+                    Quantidade: ${produto.quantidade}<br>
+                    Preço: R$ ${produto.preco.toFixed(2)}<br>
+                    Data: ${produto.data}<br>
+                    Usuário: ${produto.usuario}
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('usuarioLogado');
+            alert('Logout realizado com sucesso!');
+            window.location.href = 'login.html';
+        }
+
+        // Carregar produtos ao iniciar
+        atualizarListaProdutos();
+    </script>
+</body>
+</html>

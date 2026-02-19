@@ -1,0 +1,114 @@
+nome,categoria,preco,estoque,descricao
+iPhone 15 Pro,Eletrônicos,5999.99,25,Smartphone Apple com chip A17 Pro
+Samsung Galaxy S24,Eletrônicos,4299.99,30,Smartphone Android premium
+MacBook Air M3,Eletrônicos,8999.99,15,Notebook Apple com chip M3
+Dell XPS 13,Eletrônicos,6499.99,20,Ultrabook Windows premium
+iPad Pro 12.9,Eletrônicos,7299.99,18,Tablet profissional Apple
+Surface Pro 9,Eletrônicos,5799.99,22,Tablet 2-em-1 Microsoft
+AirPods Pro 2,Eletrônicos,1899.99,50,Fones sem fio com cancelamento de ruído
+Sony WH-1000XM5,Eletrônicos,1699.99,35,Headphone premium com noise cancelling
+Nintendo Switch OLED,Eletrônicos,2299.99,40,Console portátil Nintendo
+PlayStation 5,Eletrônicos,3999.99,12,Console Sony nova geração
+Xbox Series X,Eletrônicos,3799.99,15,Console Microsoft 4K
+Apple Watch Series 9,Eletrônicos,2799.99,28,Smartwatch Apple GPS
+Samsung Watch 6,Eletrônicos,1999.99,32,Smartwatch Android Wear
+Canon EOS R6,Eletrônicos,12999.99,8,Câmera mirrorless profissional
+Sony A7 IV,Eletrônicos,14999.99,6,Câmera full frame Sony
+GoPro Hero 12,Eletrônicos,2499.99,25,Action camera 4K
+DJI Mini 4 Pro,Eletrônicos,4999.99,10,Drone compacto 4K
+Kindle Oasis,Eletrônicos,1299.99,45,E-reader premium Amazon
+Echo Dot 5ª Gen,Eletrônicos,299.99,60,Smart speaker Alexa
+Google Nest Hub,Eletrônicos,699.99,35,Display inteligente Google
+Camiseta Básica Preta,Roupas,49.99,100,Camiseta 100% algodão
+Jeans Skinny Azul,Roupas,129.99,75,Calça jeans stretch feminina
+Tênis Nike Air Max,Roupas,399.99,50,Tênis esportivo Nike
+Adidas Ultraboost,Roupas,449.99,40,Tênis running Adidas
+Jaqueta Jeans,Roupas,199.99,30,Jaqueta jeans clássica
+Vestido Floral,Roupas,159.99,25,Vestido estampado verão
+Camisa Social Branca,Roupas,89.99,60,Camisa social masculina
+Blazer Feminino,Roupas,249.99,20,Blazer executivo feminino
+Shorts Jeans,Roupas,79.99,80,Shorts jeans casual
+Saia Midi Preta,Roupas,119.99,35,Saia midi social
+Moletom Capuz,Roupas,149.99,45,Moletom com capuz unissex
+Legging Fitness,Roupas,69.99,70,Legging esportiva feminina
+Cueca Boxer Kit 3un,Roupas,59.99,90,Kit cuecas masculinas
+Sutiã Esportivo,Roupas,79.99,55,Sutiã para exercícios
+Meia Social Kit 5un,Roupas,39.99,120,Kit meias sociais
+Chinelo Havaianas,Roupas,29.99,150,Chinelo brasileiro clássico
+Boné Aba Curva,Roupas,49.99,80,Boné ajustável unissex
+Óculos de Sol Ray-Ban,Roupas,399.99,25,Óculos de sol clássico
+Relógio Casio Digital,Roupas,199.99,40,Relógio digital esportivo
+Carteira Couro,Roupas,129.99,50,Carteira masculina couro
+Sofá 3 Lugares,Casa,1999.99,8,Sofá confortável sala
+Mesa de Jantar 6 Lugares,Casa,1299.99,5,Mesa madeira maciça
+Cama Box Casal,Casa,899.99,12,Cama box com colchão
+Guarda-roupa 6 Portas,Casa,1599.99,6,Guarda-roupa MDF
+Rack para TV,Casa,499.99,15,Rack suspenso moderno
+Poltrona Reclinável,Casa,799.99,10,Poltrona confort premium
+Mesa de Centro,Casa,349.99,20,Mesa centro vidro temperado
+Estante Livros,Casa,299.99,18,Estante 5 prateleiras
+Aparador Buffet,Casa,699.99,8,Aparador sala jantar
+Cômoda 4 Gavetas,Casa,449.99,12,Cômoda quarto MDF
+Espelho Decorativo,Casa,199.99,25,Espelho moldura dourada
+Luminária de Mesa,Casa,149.99,30,Luminária LED moderna
+Tapete Sala 2x3m,Casa,299.99,15,Tapete decorativo sala
+Cortina Blackout,Casa,179.99,40,Cortina blecaute quarto
+Jogo de Cama Casal,Casa,129.99,50,Jogo cama 4 peças
+Toalha Banho Felpuda,Casa,79.99,60,Toalha 100% algodão
+Conjunto Panelas,Casa,249.99,25,Conjunto 5 panelas antiaderente
+Liquidificador Philips,Casa,199.99,35,Liquidificador 1000W
+Micro-ondas Electrolux,Casa,449.99,20,Micro-ondas 30L digital
+Geladeira Brastemp,Casa,2299.99,8,Geladeira frost free 400L
+Fogão 4 Bocas,Casa,699.99,12,Fogão a gás inox
+Máquina Lavar Roupas,Casa,1599.99,6,Lavadora 12kg automática
+Aspirador de Pó,Casa,299.99,25,Aspirador ciclônico 1400W
+Ferro de Passar,Casa,89.99,40,Ferro vapor seco Philips
+Cafeteira Elétrica,Casa,149.99,30,Cafeteira programável 1.2L
+Torradeira Elétrica,Casa,119.99,35,Torradeira 2 fatias inox
+Air Fryer 5L,Casa,349.99,28,Fritadeira elétrica sem óleo
+Batedeira Planetária,Casa,599.99,15,Batedeira stand mixer
+Processador Alimentos,Casa,199.99,22,Processador multifuncional
+Sanduicheira Grill,Casa,79.99,45,Sanduicheira antiaderente
+Ventilador de Teto,Casa,199.99,20,Ventilador 3 pás LED
+Ar Condicionado Split,Casa,1299.99,10,Split 12000 BTUs inverter
+Aquecedor Elétrico,Casa,149.99,25,Aquecedor ambiente 1500W
+Umidificador Ar,Casa,99.99,30,Umidificador ultrassônico 3L
+Purificador Água,Casa,399.99,18,Purificador gelada natural
+Whey Protein 1kg,Saúde,149.99,40,Proteína isolada sabor chocolate
+Creatina 300g,Saúde,89.99,50,Creatina monohidratada pura
+BCAA 120 caps,Saúde,79.99,35,Aminoácidos essenciais
+Multivitamínico,Saúde,59.99,60,Complexo vitamínico 60 caps
+Ômega 3 1000mg,Saúde,99.99,45,Óleo de peixe 120 caps
+Colágeno Hidrolisado,Saúde,119.99,30,Colágeno tipo 1 300g
+Termogênico,Saúde,129.99,25,Queimador gordura 60 caps
+Glutamina 300g,Saúde,69.99,40,L-Glutamina pó
+Albumina 500g,Saúde,49.99,55,Proteína clara ovo
+Maca Peruana 500mg,Saúde,79.99,35,Energético natural 60 caps
+Spirulina 500mg,Saúde,89.99,30,Superalimento 120 caps
+Clorella 500mg,Saúde,94.99,28,Detox natural 120 caps
+Magnésio Dimalato,Saúde,69.99,40,Magnésio quelato 60 caps
+Vitamina D3 2000ui,Saúde,39.99,70,Vitamina D 60 caps
+Vitamina C 1000mg,Saúde,29.99,80,Ácido ascórbico 60 caps
+Zinco Quelato 15mg,Saúde,34.99,65,Zinco biodisponível 60 caps
+Ferro Quelato 14mg,Saúde,44.99,50,Ferro quelato 60 caps
+Cálcio + Magnésio,Saúde,54.99,45,Saúde óssea 120 caps
+Probiótico 10 bilhões,Saúde,109.99,25,Flora intestinal 30 caps
+Melatonina 3mg,Saúde,49.99,55,Regulador sono 60 caps
+Bicicleta Mountain Bike,Esportes,1299.99,8,MTB aro 29 21 marchas
+Esteira Elétrica,Esportes,1999.99,5,Esteira residencial 12km/h
+Halteres 20kg Par,Esportes,299.99,15,Halteres ajustáveis
+Banco Supino,Esportes,499.99,10,Banco musculação reclinável
+Barra Fixa Porta,Esportes,89.99,25,Barra exercícios porta
+Corda Pular,Esportes,29.99,50,Corda speed rope
+Tapete Yoga,Esportes,79.99,30,Tapete antiderrapante 6mm
+Bola Pilates 65cm,Esportes,49.99,35,Bola suíça exercícios
+Elástico Exercícios,Esportes,39.99,40,Kit elásticos resistência
+Luvas Musculação,Esportes,59.99,45,Luvas grip antiderrapante
+Tênis Corrida Asics,Esportes,349.99,20,Tênis running gel
+Shorts Corrida,Esportes,89.99,35,Shorts dry-fit masculino
+Camiseta Dry-Fit,Esportes,69.99,50,Camiseta esportiva
+Top Esportivo,Esportes,79.99,40,Top fitness feminino
+Mochila Esportiva,Esportes,129.99,25,Mochila academia 30L
+Garrafa Térmica 1L,Esportes,79.99,60,Garrafa inox térmica
+Relógio Esportivo,Esportes,299.99,18,Smartwatch fitness GPS
+Fone Bluetooth Sport,Esportes,199.99,30,Fone sem fio esportivo

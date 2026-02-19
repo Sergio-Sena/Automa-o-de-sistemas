@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação de Sistemas - Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #718096;
+            font-weight: 400;
+        }
+        
+        .demo-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .demo-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .demo-card h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .demo-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .features li {
+            color: #4a5568;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .execution-panel {
+            background: #1a202c;
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .execution-panel h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .execute-btn {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+        }
+        
+        .execute-btn:disabled {
+            background: #718096;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .status.loading {
+            background: #fef5e7;
+            color: #c05621;
+            border: 1px solid #fbd38d;
+        }
+        
+        .status.success {
+            background: #f0fff4;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .status.error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+        
+        .logs {
+            background: #2d3748;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+        }
+        
+        .log-line {
+            margin-bottom: 5px;
+            color: #a0aec0;
+        }
+        
+        .log-line.success {
+            color: #68d391;
+        }
+        
+        .log-line.error {
+            color: #fc8181;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Automação de Sistemas</h1>
+            <p>Demonstração de automação web com cadastro de produtos</p>
+        </div>
+        
+        <div class="demo-section">
+            <div class="demo-card">
+                <h3>📋 O que faz</h3>
+                <p>Esta automação demonstra um sistema completo de cadastro de produtos com as seguintes funcionalidades:</p>
+                <ul class="features">
+                    <li>Login automático no sistema</li>
+                    <li>Cadastro de 20 produtos do CSV</li>
+                    <li>Preenchimento de 5 campos por produto</li>
+                    <li>Logout automático ao final</li>
+                    <li>Relatório de execução</li>
+                </ul>
+            </div>
+            
+            <div class="demo-card">
+                <h3>⚡ Tecnologias</h3>
+                <p>Projeto desenvolvido com tecnologias modernas:</p>
+                <ul class="features">
+                    <li>Python + Selenium para automação</li>
+                    <li>AWS Lambda para execução remota</li>
+                    <li>HTML/CSS/JS para interface</li>
+                    <li>S3 para hospedagem e dados</li>
+                    <li>API Gateway para endpoints</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="execution-panel">
+            <h2>🚀 Executar Automação</h2>
+            <p style="margin-bottom: 20px; opacity: 0.8;">
+                Clique no botão abaixo para executar a automação remotamente via AWS Lambda
+            </p>
+            
+            <button id="executeBtn" class="execute-btn" onclick="executarAutomacao()">
+                Iniciar Automação
+            </button>
+            
+            <div id="status" class="status" style="display: none;"></div>
+            
+            <div id="logs" class="logs" style="display: none;">
+                <div class="log-line">Aguardando execução...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function executarAutomacao() {
+            const btn = document.getElementById('executeBtn');
+            const status = document.getElementById('status');
+            const logs = document.getElementById('logs');
+            
+            // Desabilitar botão
+            btn.disabled = true;
+            btn.textContent = 'Executando...';
+            
+            // Mostrar status de loading
+            status.style.display = 'block';
+            status.className = 'status loading';
+            status.textContent = '⏳ Iniciando automação...';
+            
+            // Mostrar logs
+            logs.style.display = 'block';
+            addLog('🚀 Iniciando execução da automação...');
+            addLog('📡 Conectando com AWS Lambda...');
+            
+            try {
+                // Chamar API Gateway que executa a Lambda
+                const response = await fetch('https://api.sstech-hub.com/automation/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'execute_automation'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Sucesso
+                    status.className = 'status success';
+                    status.textContent = `✅ Automação concluída! ${result.produtos_cadastrados} produtos cadastrados`;
+                    
+                    addLog('✅ Login realizado com sucesso', 'success');
+                    addLog(`📦 ${result.produtos_cadastrados} produtos cadastrados`, 'success');
+                    addLog('🚪 Logout realizado', 'success');
+                    addLog(`⏰ Concluído em ${result.timestamp}`, 'success');
+                } else {
+                    // Erro
+                    status.className = 'status error';
+                    status.textContent = `❌ Erro na automação: ${result.error}`;
+                    addLog(`❌ Erro: ${result.error}`, 'error');
+                }
+                
+            } catch (error) {
+                // Erro de conexão
+                status.className = 'status error';
+                status.textContent = '❌ Erro de conexão com o servidor';
+                addLog(`❌ Erro de conexão: ${error.message}`, 'error');
+            }
+            
+            // Reabilitar botão
+            btn.disabled = false;
+            btn.textContent = 'Executar Novamente';
+        }
+        
+        function addLog(message, type = '') {
+            const logs = document.getElementById('logs');
+            const logLine = document.createElement('div');
+            logLine.className = `log-line ${type}`;
+            logLine.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logs.appendChild(logLine);
+            logs.scrollTop = logs.scrollHeight;
+        }
+    </script>
+</body>
+</html>

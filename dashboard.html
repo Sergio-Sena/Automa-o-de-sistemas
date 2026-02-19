@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Executivo - Estoque</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+        
+        * { 
+            box-sizing: border-box; 
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { 
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card h3 {
+            color: #34495e;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .metric-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric-card.produtos .metric-number { color: #3498db; }
+        .metric-card.valor .metric-number { color: #27ae60; }
+        .metric-card.baixo .metric-number { color: #f39c12; }
+        .metric-card.critico .metric-number { color: #e74c3c; }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .chart-card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .automation-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .automation-panel h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .btn-automation {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-automation:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-automation:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .status-log {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-line;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Dashboard Executivo</h1>
+            <p>Sistema Inteligente de Controle de Estoque</p>
+        </div>
+
+        <!-- Métricas Principais -->
+        <div class="metrics-grid">
+            <div class="metric-card produtos">
+                <h3>Total de Produtos</h3>
+                <div class="metric-number" id="total-produtos">0</div>
+                <p>Itens cadastrados</p>
+            </div>
+            <div class="metric-card valor">
+                <h3>Valor Total</h3>
+                <div class="metric-number" id="valor-total">R$ 0</div>
+                <p>Patrimônio em estoque</p>
+            </div>
+            <div class="metric-card baixo">
+                <h3>Estoque Baixo</h3>
+                <div class="metric-number" id="estoque-baixo">0</div>
+                <p>Produtos para repor</p>
+            </div>
+            <div class="metric-card critico">
+                <h3>Situação Crítica</h3>
+                <div class="metric-number" id="produtos-criticos">0</div>
+                <p>Reposição urgente</p>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📈 Distribuição por Categoria</h3>
+                <canvas id="categoriaChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>💰 Valor por Categoria</h3>
+                <canvas id="valorChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Painel de Automação -->
+        <div class="automation-panel">
+            <h3>🤖 Central de Automação</h3>
+            <p>Execute a automação para importar produtos do CSV automaticamente</p>
+            
+            <button class="btn-automation" onclick="executarAutomacao()" id="btnAutomacao">
+                🚀 Executar Automação
+            </button>
+            
+            <button class="btn-automation" onclick="atualizarDados()">
+                🔄 Atualizar Dashboard
+            </button>
+            
+            <button class="btn-automation" onclick="exportarRelatorio()">
+                📊 Exportar Relatório
+            </button>
+
+            <!-- Status da Automação -->
+            <div class="status-panel" id="statusPanel" style="display: none;">
+                <h4>Status da Automação:</h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="status-log" id="statusLog"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let produtos = [];
+        let categoriaChart, valorChart;
+
+        // Inicializar dashboard
+        window.onload = function() {
+            carregarDados();
+            criarGraficos();
+            atualizarDashboard();
+        };
+
+        function carregarDados() {
+            // Carregar dados do localStorage
+            produtos = JSON.parse(localStorage.getItem('estoque_produtos')) || [];
+        }
+
+        function atualizarDashboard() {
+            carregarDados();
+            atualizarMetricas();
+            atualizarGraficos();
+        }
+
+        function atualizarMetricas() {
+            const totalProdutos = produtos.length;
+            const estoqueBaixo = produtos.filter(p => p.estoqueAtual <= p.estoqueMinimo).length;
+            const produtosCriticos = produtos.filter(p => p.estoqueAtual < p.estoqueMinimo).length;
+            const valorTotal = produtos.reduce((total, p) => total + (p.precoVenda * p.estoqueAtual), 0);
+
+            document.getElementById('total-produtos').textContent = totalProdutos;
+            document.getElementById('estoque-baixo').textContent = estoqueBaixo;
+            document.getElementById('produtos-criticos').textContent = produtosCriticos;
+            document.getElementById('valor-total').textContent = `R$ ${valorTotal.toLocaleString('pt-BR')}`;
+        }
+
+        function criarGraficos() {
+            // Gráfico de Categoria
+            const ctxCategoria = document.getElementById('categoriaChart').getContext('2d');
+            categoriaChart = new Chart(ctxCategoria, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: ['#3498db', '#e74c3c', '#f39c12', '#27ae60', '#9b59b6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Gráfico de Valor
+            const ctxValor = document.getElementById('valorChart').getContext('2d');
+            valorChart = new Chart(ctxValor, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Valor (R$)',
+                        data: [],
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function atualizarGraficos() {
+            // Dados por categoria
+            const categorias = {};
+            const valoresPorCategoria = {};
+
+            produtos.forEach(produto => {
+                const cat = produto.categoria || 'Outros';
+                categorias[cat] = (categorias[cat] || 0) + 1;
+                valoresPorCategoria[cat] = (valoresPorCategoria[cat] || 0) + (produto.precoVenda * produto.estoqueAtual);
+            });
+
+            // Atualizar gráfico de categoria
+            categoriaChart.data.labels = Object.keys(categorias);
+            categoriaChart.data.datasets[0].data = Object.values(categorias);
+            categoriaChart.update();
+
+            // Atualizar gráfico de valor
+            valorChart.data.labels = Object.keys(valoresPorCategoria);
+            valorChart.data.datasets[0].data = Object.values(valoresPorCategoria);
+            valorChart.update();
+        }
+
+        async function executarAutomacao() {
+            const btn = document.getElementById('btnAutomacao');
+            const statusPanel = document.getElementById('statusPanel');
+            const statusLog = document.getElementById('statusLog');
+            const progressFill = document.getElementById('progressFill');
+
+            // Desabilitar botão
+            btn.disabled = true;
+            btn.textContent = '⏳ Executando...';
+            
+            // Mostrar painel de status
+            statusPanel.style.display = 'block';
+            statusLog.textContent = 'Conectando com servidor de automação...\n';
+
+            try {
+                // Chamar API real
+                const response = await fetch('http://127.0.0.1:5000/executar-automacao', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    statusLog.textContent += 'Automação iniciada com sucesso!\n';
+                    
+                    // Monitorar progresso
+                    monitorarProgresso(statusLog, progressFill, () => {
+                        btn.disabled = false;
+                        btn.textContent = '🚀 Executar Automação';
+                        
+                        // Atualizar dashboard após automação real
+                        setTimeout(() => {
+                            atualizarDashboard();
+                            statusLog.textContent += '\n✅ Dashboard atualizado com dados reais!';
+                        }, 2000);
+                    });
+                } else {
+                    throw new Error('Falha ao iniciar automação');
+                }
+            } catch (error) {
+                statusLog.textContent += `\n❌ Erro: ${error.message}\n`;
+                statusLog.textContent += '\n💡 Solução: Execute \'python servidor_automacao.py\' primeiro\n';
+                
+                btn.disabled = false;
+                btn.textContent = '🚀 Executar Automação';
+                
+                // Fallback para simulação se servidor não estiver rodando
+                statusLog.textContent += '\n🔄 Usando modo simulação...\n';
+                simularAutomacao(statusLog, progressFill, () => {
+                    btn.disabled = false;
+                    btn.textContent = '🚀 Executar Automação';
+                });
+            }
+        }
+
+        async function monitorarProgresso(logElement, progressElement, callback) {
+            const monitorar = async () => {
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/status-automacao');
+                    const status = await response.json();
+                    
+                    // Atualizar progresso
+                    progressElement.style.width = status.progresso + '%';
+                    
+                    // Atualizar log se houver nova mensagem
+                    if (status.mensagem) {
+                        const linhas = logElement.textContent.split('\n');
+                        const ultimaLinha = linhas[linhas.length - 2] || '';
+                        
+                        if (!ultimaLinha.includes(status.mensagem)) {
+                            logElement.textContent += status.mensagem + '\n';
+                        }
+                    }
+                    
+                    // Verificar se terminou
+                    if (!status.executando && status.progresso >= 100) {
+                        if (status.concluida) {
+                            logElement.textContent += '✅ Automação concluída com sucesso!\n';
+                        } else {
+                            logElement.textContent += '❌ Automação falhou!\n';
+                        }
+                        callback();
+                        return;
+                    }
+                    
+                    // Continuar monitorando
+                    setTimeout(monitorar, 1000);
+                    
+                } catch (error) {
+                    logElement.textContent += `\n❌ Erro ao monitorar: ${error.message}\n`;
+                    callback();
+                }
+            };
+            
+            monitorar();
+        }
+
+        function simularAutomacao(logElement, progressElement, callback) {
+            const etapas = [
+                'Modo simulação ativo...',
+                'Simulando abertura do navegador...',
+                'Simulando login...',
+                'Simulando cadastro de produtos...',
+                'Finalizando simulação...'
+            ];
+
+            let etapaAtual = 0;
+            
+            function proximaEtapa() {
+                if (etapaAtual < etapas.length) {
+                    logElement.textContent += etapas[etapaAtual] + '\n';
+                    progressElement.style.width = ((etapaAtual + 1) / etapas.length * 100) + '%';
+                    etapaAtual++;
+                    
+                    setTimeout(proximaEtapa, 1000);
+                } else {
+                    logElement.textContent += '⚠️ Simulação concluída (dados não alterados)\n';
+                    callback();
+                }
+            }
+            
+            proximaEtapa();
+        }
+
+        function atualizarDados() {
+            // Simular atualização
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '🔄 Atualizando...';
+            
+            setTimeout(() => {
+                atualizarDashboard();
+                btn.disabled = false;
+                btn.textContent = '🔄 Atualizar Dashboard';
+                
+                // Mostrar notificação
+                alert('Dashboard atualizado com sucesso!');
+            }, 1000);
+        }
+
+        function exportarRelatorio() {
+            // Gerar relatório em CSV
+            if (produtos.length === 0) {
+                alert('Nenhum produto encontrado para exportar!');
+                return;
+            }
+
+            let csv = 'Codigo,Produto,Categoria,Fornecedor,Estoque,Valor_Total\n';
+            
+            produtos.forEach(produto => {
+                const valorTotal = produto.precoVenda * produto.estoqueAtual;
+                csv += `${produto.codigo},${produto.nome},${produto.categoria},${produto.fornecedor},${produto.estoqueAtual},${valorTotal.toFixed(2)}\n`;
+            });
+
+            // Download do arquivo
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `relatorio_estoque_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
